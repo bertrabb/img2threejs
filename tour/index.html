@@ -243,7 +243,7 @@ const grassTex = canvasTex(512, 512, (g, W, H) => {
   for (let i = 0; i < 4000; i++) { const v = r(); g.fillStyle = v < 0.5 ? `rgba(110,120,60,${0.3 + r() * 0.4})` : `rgba(170,150,100,${0.2 + r() * 0.3})`; g.fillRect(r() * W, r() * H, 2 + r() * 5, 2 + r() * 5); }
 }, [60, 60]);
 function skyTex(night) {
-  const t = canvasTex(2048, 1024, (g, W, H) => {
+  const t = canvasTex(1024, 512, (g, W, H) => {
     const r = rng(night ? 42 : 8);
     const gr = g.createLinearGradient(0, 0, 0, H / 2);
     if (night) { gr.addColorStop(0, '#02040b'); gr.addColorStop(0.75, '#0a1328'); gr.addColorStop(1, '#1b2640'); }
@@ -258,7 +258,14 @@ function skyTex(night) {
         cg.addColorStop(0, 'rgba(255,255,255,0.85)'); cg.addColorStop(1, 'rgba(255,255,255,0)'); g.save(); g.translate(cx, cy); g.scale(2.4, 1); g.translate(-cx, -cy); g.fillStyle = cg; g.fillRect(cx - rad, cy - rad, rad * 2, rad * 2); g.restore(); }
     }
   });
-  t.mapping = THREE.EquirectangularReflectionMapping; t.wrapS = THREE.RepeatWrapping; t.wrapT = THREE.ClampToEdgeWrapping; return t;
+  // the path tracer needs raw pixel data: convert the painted canvas into a linear float DataTexture (rows flipped, flipY off)
+  const c = t.image, W = c.width, H = c.height, px = c.getContext('2d').getImageData(0, 0, W, H).data;
+  const f = new Float32Array(W * H * 4), lin = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const si = (y * W + x) * 4, di = ((H - 1 - y) * W + x) * 4;
+    f[di] = lin(px[si]); f[di + 1] = lin(px[si + 1]); f[di + 2] = lin(px[si + 2]); f[di + 3] = 1; }
+  const d = new THREE.DataTexture(f, W, H, THREE.RGBAFormat, THREE.FloatType);
+  d.mapping = THREE.EquirectangularReflectionMapping; d.colorSpace = THREE.LinearSRGBColorSpace; d.wrapS = THREE.RepeatWrapping; d.wrapT = THREE.ClampToEdgeWrapping;
+  d.magFilter = d.minFilter = THREE.LinearFilter; d.generateMipmaps = false; d.needsUpdate = true; t.dispose(); return d;
 }
 const SKY = { day: skyTex(false), night: skyTex(true) };
 
