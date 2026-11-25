@@ -254,8 +254,8 @@ function skyTex(night) {
       for (let i = 0; i < 3200; i++) { const y = Math.pow(r(), 1.4) * H * 0.49, a = 0.35 + r() * 0.65; g.fillStyle = `rgba(255,${235 + r() * 20 | 0},${215 + r() * 40 | 0},${a})`; const s = r() < 0.04 ? 2.2 : 1.1; g.fillRect(r() * W, y, s, s); }
       g.save(); g.globalAlpha = 0.08; g.filter = 'blur(18px)'; g.fillStyle = '#9fb3e6'; g.beginPath(); g.ellipse(W * 0.55, H * 0.2, W * 0.5, 40, 0.12, 0, 7); g.fill(); g.restore();
     } else {
-      for (let i = 0; i < 70; i++) { const cx = r() * W, cy = H * (0.12 + r() * 0.34), rad = 30 + r() * 70; const cg = g.createRadialGradient(cx, cy, 0, cx, cy, rad);
-        cg.addColorStop(0, 'rgba(255,255,255,0.85)'); cg.addColorStop(1, 'rgba(255,255,255,0)'); g.save(); g.translate(cx, cy); g.scale(2.4, 1); g.translate(-cx, -cy); g.fillStyle = cg; g.fillRect(cx - rad, cy - rad, rad * 2, rad * 2); g.restore(); }
+      for (let i = 0; i < 28; i++) { const cx = r() * W, cy = H * (0.18 + r() * 0.28), rad = 10 + r() * 22; const cg = g.createRadialGradient(cx, cy, 0, cx, cy, rad);
+        cg.addColorStop(0, 'rgba(255,255,255,0.7)'); cg.addColorStop(1, 'rgba(255,255,255,0)'); g.save(); g.translate(cx, cy); g.scale(2.4, 1); g.translate(-cx, -cy); g.fillStyle = cg; g.fillRect(cx - rad, cy - rad, rad * 2, rad * 2); g.restore(); }
     }
   });
   // the path tracer needs raw pixel data: convert the painted canvas into a linear float DataTexture (rows flipped, flipY off)

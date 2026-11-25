@@ -4,6 +4,17 @@
 (geometría procedural y texturas generadas en canvas; sin mallas ni packs de arte descargados), a partir
 de las 7 fotografías de `ref/`.
 
+## Modo render (v2)
+- Trazado de rayos progresivo en el navegador (`three-gpu-pathtracer` 0.0.28 sobre Three.js 0.187): en cuanto la
+  cámara se detiene, la imagen se refina con luz rebotada, sombras suaves y reflejos, como un render de arquitectura.
+  Mientras la cámara se mueve se ve la vista rápida. El botón "Render" lo activa o desactiva.
+- Cielo como mapa de entorno (día con nubes / noche con estrellas), que es la fuente de luz ambiental.
+- Estatua y bustos esculpidos con campos de distancia (superficies continuas), colcha con caída y pliegues,
+  hojas con nervios, tejidos con brillo de tela (sheen), olivos con copas orgánicas.
+- Verificado en Chromium con WebGL por software (`evidence/renders-v2/`): unas 30-40 pasadas en 25 min, por eso
+  las capturas tienen grano. En un equipo con tarjeta gráfica la imagen converge en segundos; no se ha medido
+  en móviles reales.
+
 ## Qué incluye
 - Cúpula geodésica 5V (banda de OSB opaca + paneles transparentes) con sombras de la estructura en el suelo.
 - Tabique de mármol con split, fuente de león con laurel, jacuzzi revestido, repisa con estatua, copa y urna.
