@@ -828,6 +828,7 @@ function initPathTracer() {
 btnRender.onclick = () => { ptOn = !ptOn; btnRender.setAttribute('aria-pressed', ptOn ? 'true' : 'false'); moved = true; if (ptOn && !pt) initPathTracer(); };
 controls.addEventListener('change', () => { moved = true; });
 function frame(now) {
+  if (window.__freeze) { requestAnimationFrame(frame); return; }
   if (tween) { const k = Math.min(1, (now - tween.start) / tween.dur), e = ease(k); camera.position.lerpVectors(tween.p0, tween.p1, e); controls.target.lerpVectors(tween.t0, tween.t1, e); if (k >= 1) tween = null; moved = true; }
   controls.update(); clampInside();
   if (ptOn && pt) {
