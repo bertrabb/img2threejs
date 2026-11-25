@@ -1,0 +1,20 @@
+{
+  "passed": false,
+  "checks": {
+    "silhouetteIoU": 0.3187,
+    "aspectRatioDelta": 0.827,
+    "scaleDelta": 0.2658,
+    "bilateralSymmetryError": 0.3062
+  },
+  "failures": [
+    "silhouette IoU 0.319 is below threshold 0.85",
+    "aspect-ratio delta 0.827 exceeds threshold 0.05",
+    "scale delta 0.266 exceeds threshold 0.08"
+  ],
+  "maskWarnings": [
+    "reference: 23.3% of foreground cells lie outside the largest connected blob and were excluded from the bounding box; if the subject really has separated parts in this projection, they are not being measured",
+    "render: 7.8% of foreground cells lie outside the largest connected blob and were excluded from the bounding box; if the subject really has separated parts in this projection, they are not being measured"
+  ],
+  "renderHash": "ef8dfe7edcc80379",
+  "passId": null
+}

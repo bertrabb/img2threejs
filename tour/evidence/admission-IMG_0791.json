@@ -1,0 +1,16 @@
+{
+  "admitted": false,
+  "reasons": [
+    "mask coherence: largest connected blob is 0.59 of foreground < 0.6 (fragmented/scattered subject — ambiguous)"
+  ],
+  "provenance": {
+    "viewpoint": "IMG_0791",
+    "sourcePath": "/home/user/img2threejs/tour/ref/IMG_0791.jpg",
+    "width": 1512,
+    "height": 2016,
+    "foregroundCoverage": 0.3114,
+    "largestComponentFraction": 0.5912,
+    "pHash": 13468266330888102088,
+    "duplicateOfHash": null
+  }
+}
